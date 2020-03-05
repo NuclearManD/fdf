@@ -17,7 +17,7 @@
 
 void			move_camera(t_mlx *mlx)
 {
-	(void *)mlx;
+	(void)mlx;
 }
 
 void			rotate_camera(t_mlx *mlx, int new_x, int new_y)

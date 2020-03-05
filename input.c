@@ -46,20 +46,32 @@ int		hook_mousemove(int x, int y, t_mlx *mlx)
 	return (0);
 }
 
-int				key_press_hook(int keycode, void *param)
+int				key_press_hook(int keycode, t_mlx *mlx)
 {
 	if (keycode == 53)
 		exit(EXIT_SUCCESS);
-	// here we need to calculate and save the camera position somewhere
-	printf("keydown = %#.4x, %p\n", keycode, param);
+	if (keycode == KEY_UPARROW)
+		mlx->button_states |= MASK_KEY_UP;
+	if (keycode == KEY_DOWNARROW)
+		mlx->button_states |= MASK_KEY_DOWN;
+	if (keycode == KEY_LEFTARROW)
+		mlx->button_states |= MASK_KEY_LEFT;
+	if (keycode == KEY_RIGHTARROW)
+		mlx->button_states |= MASK_KEY_RIGHT;
 	return (0);
 }
 
-int				key_release_hook(int keycode, void *param)
+int				key_release_hook(int keycode, t_mlx *mlx)
 {
 	if (keycode == 53)
 		exit(EXIT_SUCCESS);
-	// here we need to calculate and save the camera position somewhere
-	printf("keyup = %#.4x, %p\n", keycode, param);
+	if (keycode == KEY_UPARROW)
+		mlx->button_states &= 0xFFFF ^ MASK_KEY_UP;
+	if (keycode == KEY_DOWNARROW)
+		mlx->button_states &= 0xFFFF ^ MASK_KEY_DOWN;
+	if (keycode == KEY_LEFTARROW)
+		mlx->button_states &= 0xFFFF ^ MASK_KEY_LEFT;
+	if (keycode == KEY_RIGHTARROW)
+		mlx->button_states &= 0xFFFF ^ MASK_KEY_RIGHT;
 	return (0);
 }

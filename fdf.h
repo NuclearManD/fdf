@@ -27,6 +27,11 @@
 # define MASK_KEY_UP		8
 # define MASK_KEY_DOWN		16
 
+# define KEY_UPARROW	126
+# define KEY_DOWNARROW	125
+# define KEY_LEFTARROW	123
+# define KEY_RIGHTARROW	124
+
 typedef struct	s_img
 {
 	void		*img_ptr;
@@ -54,8 +59,8 @@ t_img			*create_image(void *mlx, int xs, int ys, int bgcolor);
 int				hook_mousedown(int button, int x, int y, t_mlx *mlx);
 int				hook_mouseup(int button, int x, int y, t_mlx *mlx);
 int				hook_mousemove(int x, int y, t_mlx *mlx);
-int				key_press_hook(int keycode,void *param);
-int				key_release_hook(int keycode,void *param);
+int				key_press_hook(int keycode, t_mlx *mlx);
+int				key_release_hook(int keycode, t_mlx *mlx);
 
 void			rotate_camera(t_mlx *mlx, int last_x, int last_y);
 void			move_camera(t_mlx *mlx);

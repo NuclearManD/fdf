@@ -15,22 +15,22 @@
 #include "libft.h"
 #include "libftmath.h"
 
-int				loop_hook(void *param)
+int				loop_hook(t_mlx *mlx)
 {
 	t_img	*img;
-	t_mlx	*mlx;
-	static int count;
 
-	mlx = (t_mlx*)param;
-	img = create_image(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, 0x9080EF);
-	ft_memset(img->data, 80, count * 4);
-	img->data[count] = 0xA090FF;
-	img->data[count + 1] = 0xA090FF;
-	img->data[count + 2] = 0xA090FF;
-	img->data[count + 3] = 0xA090FF;
-	count += 16;
-	if (count > WIN_WIDTH * WIN_HEIGHT)
-		count = 0;
+	img = create_image(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, 0);
+	
+	if (mlx->button_states & MASK_KEY_UP)
+		memset(&(img->data[WIN_WIDTH * 5 / 4]), 0x6F, WIN_WIDTH * 2);
+	if (mlx->button_states & MASK_KEY_LEFT)
+		memset(&(img->data[WIN_WIDTH * 2 * 4]), 0x6F, WIN_WIDTH * 2);
+	if (mlx->button_states & MASK_KEY_RIGHT)
+		memset(&(img->data[WIN_WIDTH * (2 * 4) + WIN_WIDTH / 2]), 0x6F, WIN_WIDTH * 2);
+	if (mlx->button_states & MASK_KEY_DOWN)
+		memset(&(img->data[WIN_WIDTH * 16 + WIN_WIDTH * 5 / 4]), 0x6F, WIN_WIDTH * 2);
+	
+	
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, img->img_ptr, 0, 0);
 	free(img);
 	return (0);
@@ -40,10 +40,11 @@ int				main()//int ac, char **av)
 {
 	t_mlx	mlx; //Here I first create my struct that will contains all the "MLX stuff"
 
+	mlx.button_states = 0;
 	mlx.mlx_ptr = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "SS13 irl");
 
-	//mlx_loop_hook(mlx.mlx_ptr, loop_hook, &mlx);
+	mlx_loop_hook(mlx.mlx_ptr, loop_hook, &mlx);
 	
 	// Program works if these two lines are commented out
 	mlx_hook(mlx.win, 4, 0, hook_mousedown, &mlx);
