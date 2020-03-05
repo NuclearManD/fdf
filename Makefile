@@ -15,7 +15,8 @@ CFLAGS=-Wall -Wextra -Werror -O3 -I. -c -Ilibft -Iminilibx_macos_sierra
 LDFLAGS =  -Llibft -Lminilibx_macos_sierra -lft -lmlx -framework OpenGL -framework Appkit
 NAME=fdf
 OBJ=$(SRC:.c=.o)
-SRC=	fdf.c
+SRC=	fdf.c \
+	imgutil.c
 
 $(NAME): 
 	gcc $(CFLAGS) $(SRC)
