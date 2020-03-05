@@ -15,7 +15,8 @@
 #include "libft.h"
 #include "libftmath.h"
 
-int loop_hook(void *param) {
+int				loop_hook(void *param)
+{
 	t_img	*img;
 	t_mlx	*mlx;
 	static int count;
@@ -45,8 +46,11 @@ int				main()//int ac, char **av)
 	//mlx_loop_hook(mlx.mlx_ptr, loop_hook, &mlx);
 	
 	// Program works if these two lines are commented out
-	mlx_mouse_hook(mlx.win, mouse_hook, &mlx);
-	mlx_key_hook(mlx.win, key_hook, &mlx);
+	mlx_hook(mlx.win, 4, 0, hook_mousedown, &mlx);
+	mlx_hook(mlx.win, 5, 0, hook_mouseup, &mlx);
+	mlx_hook(mlx.win, 6, 0, hook_mousemove, &mlx);
+	mlx_hook(mlx.win, 2, 0, key_press_hook, &mlx);
+	mlx_hook(mlx.win, 3, 0, key_release_hook, &mlx);
 
 	mlx_loop(mlx.mlx_ptr);
 	return (0);

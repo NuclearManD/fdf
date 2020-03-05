@@ -16,10 +16,16 @@
 # include "mlx.h"
 # include "libftmath.h"
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 1024
+# define WIN_WIDTH 840
+# define WIN_HEIGHT 840
 
 # define WALK_SPEED .2
+
+# define MASK_MOUSE_LEFT	1
+# define MASK_KEY_LEFT		2
+# define MASK_KEY_RIGHT		4
+# define MASK_KEY_UP		8
+# define MASK_KEY_DOWN		16
 
 typedef struct	s_img
 {
@@ -37,10 +43,21 @@ typedef struct	s_mlx
 	t_vec3		cam_pos;
 	double		yaw;
 	double		pitch;
+
+	int			mousex;
+	int			mousey;
+	int			button_states;
 }				t_mlx;
 
 t_img			*create_image(void *mlx, int xs, int ys, int bgcolor);
-int				mouse_hook(int button, int x, int y, void *param);
-int				key_hook(int keycode,void *param);
+
+int				hook_mousedown(int button, int x, int y, t_mlx *mlx);
+int				hook_mouseup(int button, int x, int y, t_mlx *mlx);
+int				hook_mousemove(int x, int y, t_mlx *mlx);
+int				key_press_hook(int keycode,void *param);
+int				key_release_hook(int keycode,void *param);
+
+void			rotate_camera(t_mlx *mlx, int last_x, int last_y);
+void			move_camera(t_mlx *mlx);
 
 #endif

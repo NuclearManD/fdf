@@ -17,7 +17,8 @@ NAME=fdf
 OBJ=$(SRC:.c=.o)
 SRC=	fdf.c \
 	imgutil.c \
-	input.c
+	input.c \
+	camera.c
 
 $(NAME): 
 	gcc $(CFLAGS) $(SRC)
