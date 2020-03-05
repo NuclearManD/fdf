@@ -11,12 +11,13 @@
 # **************************************************************************** #
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -O3 -I. -c -Ilibft -Iminilibx_macos_sierra
+CFLAGS=-I. -c -Ilibft -Iminilibx_macos_sierra
 LDFLAGS =  -Llibft -Lminilibx_macos_sierra -lft -lmlx -framework OpenGL -framework Appkit
 NAME=fdf
 OBJ=$(SRC:.c=.o)
 SRC=	fdf.c \
-	imgutil.c
+	imgutil.c \
+	input.c
 
 $(NAME): 
 	gcc $(CFLAGS) $(SRC)
