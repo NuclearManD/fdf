@@ -10,9 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "fdf.h"
 #include "libft.h"
 #include "libftmath.h"
+
+int loop_hook(void *param) {
+	t_img	*img;
+	t_mlx	*mlx;
+	static int count;
+
+	mlx = (t_mlx*)param;
+	img = create_image(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, 0x9080EF);
+	ft_memset(img->data, 80, count * 4);
+	img->data[count] = 0xA090FF;
+	img->data[count + 1] = 0xA090FF;
+	img->data[count + 2] = 0xA090FF;
+	img->data[count + 3] = 0xA090FF;
+	count += 16;
+	if (count > WIN_WIDTH * WIN_HEIGHT)
+		count = 0;
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, img->img_ptr, 0, 0);
+	free(img);
+	return (0);
+}
 
 int				main()//int ac, char **av)
 {
@@ -21,9 +42,11 @@ int				main()//int ac, char **av)
 
 	mlx.mlx_ptr = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "¥†®∑ß´√ç¨∆ƒˆ˚˙∂≈§å∞¢©¨¥∂ƒ∂¨∆˙≤çøˆ¨†©ø¬ˆ∆¨†©¶®ˆø…¨†¥®¨¬¥∂ˆ¥†¨√çƒ§∞ß∂´®†ªø¨∆ƒ©˜µ∆∫˙ƒ∂¨˚√ƒ");
-	img = create_image(mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, 0x6040F0);
+	img = create_image(mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, 0);
 	img->data[100000] = 0xFFFFFF;
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win, img->img_ptr, 0, 0);
+	free(img);
+	mlx_loop_hook (mlx.mlx_ptr, loop_hook, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }
