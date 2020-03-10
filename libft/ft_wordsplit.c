@@ -19,7 +19,6 @@ int				ft_wordsplit(char **arr, char *s, int maxcount)
 
 	if (s == NULL || arr == NULL)
 		return (-1);
-	s = ft_strdup(s);
 	retval = 0;
 	while (*s)
 	{

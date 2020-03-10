@@ -42,7 +42,6 @@ int		hook_mousemove(int x, int y, t_mlx *mlx)
 		rotate_camera(mlx, x, y);
 	mlx->mousex = x;
 	mlx->mousey = y;
-	printf("yaw = %f\n", mlx->yaw);
 	return (0);
 }
 

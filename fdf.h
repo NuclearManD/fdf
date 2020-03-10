@@ -39,6 +39,8 @@ typedef struct	s_img
 	int			size_l;
 	int			bpp;
 	int			endian;
+	int			sx;
+	int			sy;
 }				t_img;
 
 typedef struct	s_mlx
@@ -52,9 +54,16 @@ typedef struct	s_mlx
 	int			mousex;
 	int			mousey;
 	int			button_states;
+	double		**map;
+
+	double		a_x;
+	double		a_y;
+	double		i_x;
+	double		i_y;
 }				t_mlx;
 
 t_img			*create_image(void *mlx, int xs, int ys, int bgcolor);
+void			line_on_black(t_img *img, t_vec2 *a, t_vec2 *b, int color);
 
 int				hook_mousedown(int button, int x, int y, t_mlx *mlx);
 int				hook_mouseup(int button, int x, int y, t_mlx *mlx);
@@ -64,5 +73,7 @@ int				key_release_hook(int keycode, t_mlx *mlx);
 
 void			rotate_camera(t_mlx *mlx, int last_x, int last_y);
 void			move_camera(t_mlx *mlx);
+
+double			**load_map(int fd, int *sizes);
 
 #endif

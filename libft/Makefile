@@ -1,7 +1,7 @@
 FLAGS=-Wall -Wextra -Werror -O3
 NAME=libft.a
 
-$(NAME): 
+$(NAME):
 	gcc $(FLAGS) ft_argparse.c -c -o ft_argparse.c.o
 	gcc $(FLAGS) ft_atoi.c -c -o ft_atoi.c.o
 	gcc $(FLAGS) ft_atoi_base.c -c -o ft_atoi_base.c.o

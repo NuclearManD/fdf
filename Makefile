@@ -11,18 +11,24 @@
 # **************************************************************************** #
 
 CC=gcc
-CFLAGS=-I. -c -Ilibft -Iminilibx_macos_sierra
+CFLAGS=-I. -g -c -Ilibft -Iminilibx_macos_sierra
 LDFLAGS =  -Llibft -Lminilibx_macos_sierra -lft -lmlx -framework OpenGL -framework Appkit
 NAME=fdf
 OBJ=$(SRC:.c=.o)
 SRC=	fdf.c \
 	imgutil.c \
 	input.c \
-	camera.c
+	camera.c \
+	get_next_line.c \
+	maploader.c \
+	kit3d.c \
 
-$(NAME): 
+$(NAME): libft/libft.a
 	gcc $(CFLAGS) $(SRC)
 	gcc $(LDFLAGS) *.o -o $(NAME)
+
+libft/libft.a:
+	$(MAKE) -C libft
 
 all: $(NAME)
 
